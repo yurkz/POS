@@ -40,7 +40,14 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
-
+    // public function showRegistrationForm()
+    // {
+    //     abort(404, 'Missing');
+    // }
+    // public function register()
+    // {
+    //     abort(404, 'Missing');
+    // }
     /**
      * Get a validator for an incoming registration request.
      *

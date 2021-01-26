@@ -1894,18 +1894,21 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 vue__WEBPACK_IMPORTED_MODULE_1__.default.use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.plugin);
 var el = document.getElementById('app');
-new vue__WEBPACK_IMPORTED_MODULE_1__.default({
-  render: function render(h) {
-    return h(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.App, {
-      props: {
-        initialPage: JSON.parse(el.dataset.page),
-        resolveComponent: function resolveComponent(name) {
-          return __webpack_require__("./resources/js/Pages sync recursive ^\\.\\/.*$")("./".concat(name))["default"];
+
+if (el) {
+  new vue__WEBPACK_IMPORTED_MODULE_1__.default({
+    render: function render(h) {
+      return h(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.App, {
+        props: {
+          initialPage: JSON.parse(el.dataset.page),
+          resolveComponent: function resolveComponent(name) {
+            return __webpack_require__("./resources/js/Pages sync recursive ^\\.\\/.*$")("./".concat(name))["default"];
+          }
         }
-      }
-    });
-  }
-}).$mount(el);
+      });
+    }
+  }).$mount(el);
+}
 
 /***/ }),
 
