@@ -23,6 +23,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dash');
     Route::get('/leads/add', [LeadController::class, 'create']);
     Route::post('/leads/save', [LeadController::class, 'store']);
+    Route::get('/leads/list', [LeadController::class, 'index']);
+    Route::get('/leads/view/{lead}', [LeadController::class, 'view'])->name('lead.view');
 });
 
 

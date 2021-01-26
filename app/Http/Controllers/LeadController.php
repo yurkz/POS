@@ -15,6 +15,22 @@ class LeadController extends Controller
     {
         return Inertia::render('Leads/LeadAdd');
     }
+    public function index()
+    {
+        $leads = Lead::query()
+            ->where('branch_id', 1)
+            ->orderByDesc('id')
+            ->get();
+        return Inertia::render('Leads/Index', ['leads' => $leads]);
+    }
+
+    public function view(Lead $lead)
+    {
+        return Inertia::render('Leads/LeadView', [
+            'lead-prop' => $lead
+        ]);
+    }
+
 
     public function store(Request $request)
     {
