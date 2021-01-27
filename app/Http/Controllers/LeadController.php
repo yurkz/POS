@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Models\Lead;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -33,21 +34,38 @@ class LeadController extends Controller
             ->where('branch_id', 1)
             ->orderBy('id')
             ->get();
+        //$leads = Lead::paginate(5);
         return Inertia::render('Leads/Index', ['leads' => $leads]);
     }
 
     public function view(Lead $lead)
     {
+        // to load the relation table
+        $lead->load(['reminders']);
+
         return Inertia::render('Leads/LeadView', [
             'lead-prop' => $lead
         ]);
     }
+    // public function update(Request $request)
+    // {
+    //     $rules = $this->validations;
+    //     $rules['id'] = 'required|exists:leads';
+    //     $postData = $this->validate($request, $rules);
+    //     Lead::where('id',  $postData['id'])->update($request->all());
+    //     return redirect()->route('lead.view', ['lead' =>  $postData['id']]);
+    // }
 
     public function update(Request $request)
     {
+
         $rules = $this->validations;
         $rules['id'] = 'required|exists:leads';
         $postData = $this->validate($request, $rules);
+        $dob = Carbon::parse($postData['dob']);
+        $age = $dob->age;
+        $rules['age'] = $age;
+
         Lead::findOrFail($postData['id'])->update($request->all());
         return redirect()->route('lead.view', ['lead' =>  $postData['id']]);
     }
@@ -68,13 +86,16 @@ class LeadController extends Controller
             $package = $request->input('interested_package');
         }
 
+        $dob = Carbon::parse($postData['dob']);
+        $age = $dob->age;
+
         Lead::create([
             'name' => $postData['name'],
             'email' => $postData['email'],
             'phone' => $postData['phone'],
             'dob' => $postData['dob'],
             'branch_id' => 1,
-            'age' => 1,
+            'age' => $age,
             'added_by' => Auth::user()->id,
             'interested_package' => $package
         ]);

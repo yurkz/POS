@@ -2,8 +2,15 @@
   <layout>
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <h1>Leads</h1>
+        </div>
+        <div class="col-md-6">
+          <div class="row justify-content-end">
+            <inertia-link class="btn btn-success" :href="$route('lead.add')"
+              >Add New</inertia-link
+            >
+          </div>
         </div>
       </div>
       <div class="row">
@@ -19,6 +26,7 @@
               <th>Added On</th>
               <th></th>
             </tr>
+
             <tr v-for="lead in leads" :key="lead.id">
               <td>{{ lead.id }}</td>
               <td>{{ lead.name }}</td>
