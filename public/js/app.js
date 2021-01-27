@@ -1951,6 +1951,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2050,6 +2054,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2062,7 +2069,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         email: "",
         phone: "",
         dob: "",
-        "package": ""
+        interested_package: ""
       }
     };
   },
@@ -2184,6 +2191,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2196,7 +2206,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         email: "",
         phone: "",
         dob: "",
-        "package": ""
+        interested_package: ""
       }
     };
   },
@@ -2208,11 +2218,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     handleSubmit: function handleSubmit() {
+      var _this = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _context.next = 2;
+                return _this.$inertia.post("/leads/update", _this.lead);
+
+              case 2:
+                res = _context.sent;
+                console.log("update button");
+
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -2369,6 +2390,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
+
+vue__WEBPACK_IMPORTED_MODULE_1__.default.prototype.$route = route; //Vue.prototype.$route = (...args) => route(...args).url();
 
 vue__WEBPACK_IMPORTED_MODULE_1__.default.use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.plugin);
 var el = document.getElementById('app');
@@ -39992,7 +40015,21 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(lead.created_at))]),
                   _vm._v(" "),
-                  _c("td")
+                  _c(
+                    "td",
+                    [
+                      _c(
+                        "inertia-link",
+                        {
+                          attrs: {
+                            href: _vm.$route("lead.view", { lead: lead })
+                          }
+                        },
+                        [_vm._v(">")]
+                      )
+                    ],
+                    1
+                  )
                 ])
               })
             ],
@@ -40103,19 +40140,23 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.lead.package,
-                      expression: "lead.package"
+                      value: _vm.lead.interested_package,
+                      expression: "lead.interested_package"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", id: "package", tabindex: "5" },
-                  domProps: { value: _vm.lead.package },
+                  domProps: { value: _vm.lead.interested_package },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.lead, "package", $event.target.value)
+                      _vm.$set(
+                        _vm.lead,
+                        "interested_package",
+                        $event.target.value
+                      )
                     }
                   }
                 })
@@ -40180,9 +40221,25 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-12" }, [
-              _c("button", { staticClass: "btn btn-success" }, [_vm._v("Save")])
-            ])
+            _c(
+              "div",
+              { staticClass: "col-md-12" },
+              [
+                _c("button", { staticClass: "btn btn-success" }, [
+                  _vm._v("Save")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "inertia-link",
+                  {
+                    staticClass: "btn btn-warning",
+                    attrs: { href: _vm.$route("lead.list") }
+                  },
+                  [_vm._v("Back")]
+                )
+              ],
+              1
+            )
           ])
         ]
       )
@@ -40289,19 +40346,23 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.lead.package,
-                      expression: "lead.package"
+                      value: _vm.lead.interested_package,
+                      expression: "lead.interested_package"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", id: "package", tabindex: "5" },
-                  domProps: { value: _vm.lead.package },
+                  domProps: { value: _vm.lead.interested_package },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.lead, "package", $event.target.value)
+                      _vm.$set(
+                        _vm.lead,
+                        "interested_package",
+                        $event.target.value
+                      )
                     }
                   }
                 })
@@ -40366,9 +40427,25 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-12" }, [
-              _c("button", { staticClass: "btn btn-success" }, [_vm._v("Save")])
-            ])
+            _c(
+              "div",
+              { staticClass: "col-md-12" },
+              [
+                _c("button", { staticClass: "btn btn-success" }, [
+                  _vm._v("Save")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "inertia-link",
+                  {
+                    staticClass: "btn btn-warning",
+                    attrs: { href: _vm.$route("lead.list") }
+                  },
+                  [_vm._v("Back")]
+                )
+              ],
+              1
+            )
           ])
         ]
       )

@@ -29,7 +29,7 @@
               <input
                 type="text"
                 class="form-control"
-                v-model="lead.package"
+                v-model="lead.interested_package"
                 id="package"
                 tabindex="5"
               />
@@ -61,6 +61,9 @@
         <div class="row">
           <div class="col-md-12">
             <button class="btn btn-success">Save</button>
+            <inertia-link class="btn btn-warning" :href="$route('lead.list')"
+              >Back</inertia-link
+            >
           </div>
         </div>
       </form>
@@ -80,7 +83,7 @@ export default {
         email: "",
         phone: "",
         dob: "",
-        package: "",
+        interested_package: "",
       },
     };
   },

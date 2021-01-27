@@ -10,6 +10,18 @@ use Inertia\Inertia;
 class LeadController extends Controller
 {
     //
+    private $validations;
+
+    public function __constructor()
+    {
+        $this->validations([
+            'name' => 'required',
+            'email' => "required|email",
+            'phone' => "required",
+            'dob' => "required|date",
+            'interested_package' => 'sometimes'
+        ]);
+    }
 
     public function create()
     {
@@ -19,7 +31,7 @@ class LeadController extends Controller
     {
         $leads = Lead::query()
             ->where('branch_id', 1)
-            ->orderByDesc('id')
+            ->orderBy('id')
             ->get();
         return Inertia::render('Leads/Index', ['leads' => $leads]);
     }
@@ -31,6 +43,15 @@ class LeadController extends Controller
         ]);
     }
 
+    public function update(Request $request)
+    {
+        $rules = $this->validations;
+        $rules['id'] = 'required|exists:leads';
+        $postData = $this->validate($request, $rules);
+        Lead::findOrFail($postData['id'])->update($request->all());
+        return redirect()->route('lead.view', ['lead' =>  $postData['id']]);
+    }
+
 
     public function store(Request $request)
     {
@@ -38,12 +59,15 @@ class LeadController extends Controller
             'name' => 'required',
             'email' => "required|email",
             'phone' => "required",
-            'dob' => "required|date"
+            'dob' => "required|date",
+            'interested_package' => 'sometimes'
         ]);
+
         $package = "";
-        if ($request->has('package')) {
-            $package = $request->input('package');
+        if ($request->has('interested_package')) {
+            $package = $request->input('interested_package');
         }
+
         Lead::create([
             'name' => $postData['name'],
             'email' => $postData['email'],
@@ -55,6 +79,6 @@ class LeadController extends Controller
             'interested_package' => $package
         ]);
 
-        return redirect()->route('dash');
+        return redirect()->route('lead.list');
     }
 }
